@@ -3,6 +3,7 @@ import React from 'react';
 import TextInput from '../forms/TextInput'
 import TextArea from '../forms/TextArea'
 import Select from '../forms/Select'
+import CheckboxOrRadio from '../forms/CheckboxOrRadio'
 
 class Home extends React.Component {
   constructor (props) {
@@ -11,10 +12,12 @@ class Home extends React.Component {
       textInputValue: '',
       textAreaValue: '',
       selectedValue: '',
+      checkboxValue: []
     }
     this.handleTextInput = this.handleTextInput.bind(this)
     this.handleTextArea = this.handleTextArea.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleCheckbox = this.handleCheckbox.bind(this)
   }
 
 
@@ -33,6 +36,13 @@ class Home extends React.Component {
   handleSelect (e) {
     this.setState({
       selectedValue: e.target.value
+    })
+  }
+
+  handleCheckbox (e) {
+    console.log('checkbox checked', e.target.value)
+    this.setState({
+      checkboxValue: [e.target.value]
     })
   }
 
@@ -56,12 +66,22 @@ class Home extends React.Component {
             controlFunction={this.handleTextArea}
             content={this.state.textAreaValue} />
           
-
+          
+          <p>This is a select:</p>
           <Select 
             name={'select'}
             controlFunction={this.handleSelect}
             selectedValue={this.state.selectedValue}
             options={['one','two','three']} />
+          
+
+          <CheckboxOrRadio
+            title={'Please select one'}
+            type={'checkbox'}
+            name={'choices'}
+            options={['one','two','three','four']}
+            selectedOptions={this.state.checkboxValue}
+            controlFunction={this.handleCheckbox} />
 
         </form>
       </div>
